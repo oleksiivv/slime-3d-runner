@@ -45,6 +45,9 @@ public class Gem : MonoBehaviour
                 Destroy(other.gameObject.transform.parent.gameObject);
             }
         }
+        if(other.gameObject.tag.ToLower().Equals("enemy")){
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter(Collision other){
@@ -67,6 +70,9 @@ public class Gem : MonoBehaviour
             }else{
                 Destroy(other.gameObject.transform.parent.gameObject);
             }
+        }
+        if(other.gameObject.tag.ToLower().Equals("enemy")){
+            Destroy(gameObject);
         }
     }
 
