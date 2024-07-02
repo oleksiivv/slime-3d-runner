@@ -14,8 +14,12 @@ public class PlayerUIController : BaseUIController
     public Text currentQuests;
     public Text totalQuests;
 
+    public AdmobController admob;
+
     void Start(){
         Time.timeScale=1;
+
+        admob.Init();
     }
 
     public void Pause(){
@@ -47,5 +51,7 @@ public class PlayerUIController : BaseUIController
     public void SetLosePanelVisibility(bool visible){
         SetWinPanelVisibility(false);
         losePanel.SetActive(visible);
+
+        admob.showIntersitionalAd();
     }
 }

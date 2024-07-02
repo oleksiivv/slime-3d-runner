@@ -6,7 +6,7 @@ public class GroundMoveController : MonoBehaviour
 {
     public int finishPos;
     public int instPos=24;
-    public static float speed=1.2f;
+    public static float speed=1.4f;
     protected bool cleanChilds=true;
 
     public PlayerScore score;

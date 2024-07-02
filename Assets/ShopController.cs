@@ -25,8 +25,14 @@ public class ShopController : MonoBehaviour
 
     public SlimeSoundEffects sound;
 
+    public GameObject openButton;
+
+    public GameObject notEnoughCoinsAlert;
+
     public void ShowPanel(){
         panel.Play("ShowShop");
+
+        PlayerPrefs.SetInt("not_first_open", 2);
     }
 
     public void HidePanel(){
@@ -37,9 +43,19 @@ public class ShopController : MonoBehaviour
         //HidePanel();
     }
 
+    public void HideNotEnoughCoinsAlert(){
+        notEnoughCoinsAlert.SetActive(false);
+    }
+
     void Start(){
         //PlayerPrefs.SetInt("coins", 10000);
         FillUI();
+
+        if(PlayerPrefs.GetInt("not_first_open", 0) == 1){
+            ShowPanel();
+        } else if (PlayerPrefs.GetInt("not_first_open", 0) == 0){
+            PlayerPrefs.SetInt("not_first_open", 1);
+        }
     }
 
     public void Buy(int id){
@@ -63,6 +79,8 @@ public class ShopController : MonoBehaviour
             if(coinsSpend>=1000)quests.CompleteQuest("spend_1000", true);
 
             sound.PlayPickItemEffect1();
+        }else{
+            notEnoughCoinsAlert.SetActive(true);
         }
     }
 

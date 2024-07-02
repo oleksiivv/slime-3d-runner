@@ -12,6 +12,8 @@ public class QuestsMenuController : MonoBehaviour
     public List<Image> questSlotImages;
     public List<Text> questSlotStatuses, questSlotStatusesBg;
 
+    public Animator openQuestsButtonAnimator;
+
     void Start(){
         for(int i=0; i<questSlotNamesBg.Count; i++){
             questSlotNames.Add(questSlotNamesBg[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Text>());
@@ -24,6 +26,16 @@ public class QuestsMenuController : MonoBehaviour
         for(int i=0; i<questSlotStatusesBg.Count; i++){
             questSlotStatuses.Add(questSlotStatusesBg[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Text>());
         }
+
+        if(PlayerPrefs.GetInt("not_first_quests_open", 0) == 1){
+            openQuestsButtonAnimator.enabled=true;
+        } else if (PlayerPrefs.GetInt("not_first_quests_open", 0) == 0){
+            PlayerPrefs.SetInt("not_first_quests_open", 1);
+
+            openQuestsButtonAnimator.enabled=false;
+        }else{
+            openQuestsButtonAnimator.enabled=false;
+        }
     }
 
      public Animation panel;
@@ -31,6 +43,9 @@ public class QuestsMenuController : MonoBehaviour
     public void ShowPanel(){
         Init();
         panel.Play("ShowShop");
+
+        openQuestsButtonAnimator.enabled=false;
+        PlayerPrefs.SetInt("not_first_quests_open", 2);
     }
 
     public void HidePanel(){
@@ -95,17 +110,25 @@ public class QuestsMenuController : MonoBehaviour
             }else if(i>currentQuest){
                 questSlots[i].gameObject.SetActive(true);
 
-                questSlotNames[i].text = "Unavailable yet";
-                questSlotNamesBg[i].text = "Unavailable yet";
+                //questSlotNames[i].text = "Unavailable yet";
+                //questSlotNamesBg[i].text = "Unavailable yet";
 
-                questSlotDesc[i].text = "Complete previous quest to open this one!";
-                questSlotDescBg[i].text = "Complete previous quest to open this one!";
+                questSlotNames[i].text = quests[i-startFrom].name;
+                questSlotNamesBg[i].text = quests[i-startFrom].name;
 
-                questSlotStatuses[i].text = "";
-                questSlotStatusesBg[i].text = "";
+                //questSlotDesc[i].text = "Complete previous quest to open this one!";
+                //questSlotDescBg[i].text = "Complete previous quest to open this one!";
+
+                questSlotDesc[i].text = quests[i-startFrom].description;
+                questSlotDescBg[i].text = quests[i-startFrom].description;
+                
+                questSlotImages[i].sprite = quests[i-startFrom].icon;
+
+                questSlotStatuses[i].text = "Unavailable yet";
+                questSlotStatusesBg[i].text = "Unavailable yet";
 
                 questSlots[i].color = new Color32(255, 255, 255, 120);
-                questSlotImages[i].gameObject.SetActive(false);
+                //questSlotImages[i].gameObject.SetActive(false);
             }
         }
     }
