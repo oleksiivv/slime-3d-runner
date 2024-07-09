@@ -113,16 +113,16 @@ public class QuestsMenuController : MonoBehaviour
                 //questSlotNames[i].text = "Unavailable yet";
                 //questSlotNamesBg[i].text = "Unavailable yet";
 
-                questSlotNames[i].text = quests[i-startFrom].name;
-                questSlotNamesBg[i].text = quests[i-startFrom].name;
+                questSlotNames[i].text = quests[i-startFrom+1].name;
+                questSlotNamesBg[i].text = quests[i-startFrom+1].name;
 
                 //questSlotDesc[i].text = "Complete previous quest to open this one!";
                 //questSlotDescBg[i].text = "Complete previous quest to open this one!";
 
-                questSlotDesc[i].text = quests[i-startFrom].description;
-                questSlotDescBg[i].text = quests[i-startFrom].description;
+                questSlotDesc[i].text = quests[i-startFrom+1].description;
+                questSlotDescBg[i].text = quests[i-startFrom+1].description;
                 
-                questSlotImages[i].sprite = quests[i-startFrom].icon;
+                questSlotImages[i].sprite = quests[i-startFrom+1].icon;
 
                 questSlotStatuses[i].text = "Unavailable yet";
                 questSlotStatusesBg[i].text = "Unavailable yet";
